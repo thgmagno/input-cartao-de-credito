@@ -31,89 +31,60 @@ const useStore = create<cardState>((set) => ({
     },
     // methods for manipulating state
     setNumbers: (input: string) => {
-        if (!input) {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    numbers: "XXXX-XXXX-XXXX-XXXX"
-                }
-            }))
-        } else {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    numbers: input
-                }
-            }))
-        }
+        // Remove caracteres não numéricos
+        const numericInput = input.replace(/\D/g, '')
+
+        // Divide os números em grupos de 4
+        const groupedNumbers = numericInput.match(/.{1,4}/g)
+
+        // Adiciona hífens entre os grupos e limita o comprimento a 16 caracteres
+        const formattedNumbers = groupedNumbers ? groupedNumbers.join('-').slice(0, 19) : ""
+
+        set((state) => ({
+            card: {
+                ...state.card,
+                numbers: formattedNumbers || "XXXX-XXXX-XXXX-XXXX"
+            }
+        }))
     },
     setCardHolder: (input: string) => {
-        if (!input) {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    cardHolder: "XXXX XXXX"
-                }
-            }))
-        } else {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    cardHolder: input
-                }
-            }))
-        }
+        const formattedString = input.replace("XXXX XXXX", '').toUpperCase()
+        set((state) => ({
+            card: {
+                ...state.card,
+                cardHolder: formattedString || "XXXX XXXX"
+            }
+        }))
     },
     setExpiresMonth: (input: string) => {
-        if (input == "0") {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    expiresMonth: "XX"
-                }
-            }))
-        } else {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    expiresMonth: input
-                }
-            }))
-        }
+        set((state) => ({
+            card: {
+                ...state.card,
+                expiresMonth: input === "0" ? "XX" : input
+            }
+        }))
     },
     setExpiresYear: (input: string) => {
-        if (input == "0") {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    expiresYear: "XX"
-                }
-            }))
-        } else {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    expiresYear: input.slice(2)
-                }
-            }))
-        }
+        set((state) => ({
+            card: {
+                ...state.card,
+                expiresYear: input.slice(2) || "XX"
+            }
+        }))
     },
     setCVV: (input: string) => {
-        if (!input) {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    cvv: "XXX"
-                }
-            }))
-        } else {
-            set((state) => ({
-                card: {
-                    ...state.card,
-                    cvv: input
-                }
-            }))
-        }
+        // Remove caracteres não numéricos
+        const numericInput = input.replace(/\D/g, '')
+
+        // Limita o comprimento a 3 caracteres
+        const formattedCVV = numericInput.slice(0, 3)
+
+        set((state) => ({
+            card: {
+                ...state.card,
+                cvv: formattedCVV || "XXX"
+            }
+        }))
     },
     flipCard: () => {
         set((state) => ({

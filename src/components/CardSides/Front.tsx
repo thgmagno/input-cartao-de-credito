@@ -15,9 +15,9 @@ export default function FrontCard() {
                 </span>
             </div>
             <div className="grid grid-cols-2 text-xs md:text-sm overflow-hidden text-white">
-                <label>
+                <label className="overflow-hidden">
                     <p className="font-bold">Cardholder</p>
-                    <span>
+                    <span className="truncate">
                         {card.cardHolder}
                     </span>
                 </label>

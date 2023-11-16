@@ -4,7 +4,7 @@ import useStore from "@/store"
 import { getMonths, getYears } from "@/utils"
 
 export default function Form() {
-    const { setNumbers, setCardHolder, setExpiresMonth, setExpiresYear, setCVV, flipCard } = useStore()
+    const { card, setNumbers, setCardHolder, setExpiresMonth, setExpiresYear, setCVV, flipCard } = useStore()
     const arrMonths = getMonths()
     const arrYears = getYears()
 
@@ -15,6 +15,8 @@ export default function Form() {
                 <p>Número do cartão</p>
                 <input
                     type="text"
+                    value={card.numbers}
+                    className={`${card.numbers.includes("XXXX") ? 'text-zinc-300' : ''}`}
                     onChange={(ev) => setNumbers(ev.target.value)}
                 />
             </label>
@@ -23,6 +25,8 @@ export default function Form() {
                 <input
                     type="text"
                     id="cardHolder"
+                    value={card.cardHolder}
+                    className={`${card.cardHolder.includes("XXXX") ? 'text-zinc-300' : ''}`}
                     onChange={(ev) => setCardHolder(ev.target.value)}
                 />
             </label>
@@ -56,6 +60,8 @@ export default function Form() {
                     id="cvv"
                     onFocus={() => flipCard()}
                     onBlur={() => flipCard()}
+                    value={card.cvv}
+                    className={`${card.cvv.includes("XXX") ? 'text-zinc-300' : ''}`}
                     onChange={(ev) => setCVV(ev.target.value)}
                 />
             </label>
