@@ -20,7 +20,6 @@ interface cardState {
 }
 
 const useStore = create<cardState>((set) => ({
-    // initial state
     card: {
         numbers: "XXXX-XXXX-XXXX-XXXX",
         cardHolder: "XXXX XXXX",
@@ -29,15 +28,11 @@ const useStore = create<cardState>((set) => ({
         cvv: "XXX",
         side: 'front'
     },
-    // methods for manipulating state
     setNumbers: (input: string) => {
-        // Remove caracteres não numéricos
         const numericInput = input.replace(/\D/g, '')
 
-        // Divide os números em grupos de 4
         const groupedNumbers = numericInput.match(/.{1,4}/g)
 
-        // Adiciona hífens entre os grupos e limita o comprimento a 16 caracteres
         const formattedNumbers = groupedNumbers ? groupedNumbers.join('-').slice(0, 19) : ""
 
         set((state) => ({
@@ -73,10 +68,8 @@ const useStore = create<cardState>((set) => ({
         }))
     },
     setCVV: (input: string) => {
-        // Remove caracteres não numéricos
         const numericInput = input.replace(/\D/g, '')
 
-        // Limita o comprimento a 3 caracteres
         const formattedCVV = numericInput.slice(0, 3)
 
         set((state) => ({

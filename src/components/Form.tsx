@@ -26,7 +26,7 @@ export default function Form() {
                     type="text"
                     id="cardHolder"
                     value={card.cardHolder}
-                    className={`${card.cardHolder.includes("XXXX") ? 'text-zinc-300' : ''}`}
+                    className={`${card.cardHolder === "XXXX XXXX" ? 'text-zinc-300' : ''}`}
                     onChange={(ev) => setCardHolder(ev.target.value)}
                 />
             </label>

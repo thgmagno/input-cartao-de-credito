@@ -9,7 +9,7 @@ export function getMonths() {
 
 export function getYears() {
     const years = []
-    for (let i = 1970; i <= 2050; i++) {
+    for (let i = 2000; i <= 2050; i++) {
         years.push(String(i).padStart(2, "0"))
     }
 
